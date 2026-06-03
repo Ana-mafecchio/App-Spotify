@@ -1,32 +1,27 @@
 <?php
-/* Discografia-salvar.php*/
+
 $artista = $_POST['artista'];
-$nomealbum = $_POST['nomealbum'];
+$nome = $_POST['nome'];
 $ano = $_POST['ano'];
 $tipo = $_POST['tipo'];
 $foto = $_POST['foto'];
 
-echo "$artista - $nomealbum - $ano - $tipo - $foto";
+echo "Artista: $artista - Nome: $nome - Ano de lançamento: $ano - Tipo: $tipo - URL da Capa: $foto";
 
-# abri conexão
-$conexao = mysqli_connect("localhost", "root", "", "db_spotify");
-if (!$conexao){
-    die("<h3>Erro</h3>" . mysqli_connect_error());
-}
+include "inc-conexao.php";
 
-# Inserir os dados
-$sql = "insert into tb_discografia(artista, nome, ano, tipo, foto) values('$artista', '$nomealbum', $ano, '$tipo', '$foto')";
+$resultado = mysqli_execute_query($conn, "INSERT INTO tb_discografia(artista, nome, ano, tipo, foto) VALUES(?, ?, ?, ?, ?)", 
+[$artista, $nome, $ano, $tipo, $foto]);
 
-$resultado = mysqli_query($conexao , $sql);
+echo '<br><br>';
 
 if($resultado){
-    echo"Cadastrado com sucesso";
-}else{
-    echo"Deu algum problema...";
+    echo "Cadastrado com sucesso!";
+}
+else{
+    echo "Houve algum problema.";
 }
 
-# fechar conexão
-
-mysqli_close($conexao);
+mysqli_close($conn);
 
 ?>
