@@ -1,6 +1,6 @@
 <?php
 $titulo_da_pagina = "Discos";
-include "inc-cabecalho.php"
+include "inc.cabecalho.php"
 ?>
 
 <body>
